@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ankit Kumar — Research</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --card: #111827;
+      --accent: #00d4aa;
+      --accent2: #3b82f6;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,0.07);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background grid pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glow blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob1 { width: 500px; height: 500px; background: var(--accent); top: -100px; right: -100px; }
+    .blob2 { width: 400px; height: 400px; background: var(--accent2); bottom: 100px; left: -100px; }
+
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      padding: 60px 0 40px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0,212,170,0.1);
+      border: 1px solid rgba(0,212,170,0.3);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+    .badge::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffffff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .role {
+      color: var(--muted);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .institute {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .contact-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .contact-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 40px 0;
+      position: relative;
+    }
+    .divider::before {
+      content: 'RESEARCH';
+      position: absolute;
+      top: -10px;
+      left: 0;
+      background: var(--bg);
+      padding-right: 16px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ===== PAPER CARD ===== */
+    .paper-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeUp 0.8s 0.2s ease both;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .paper-card:hover {
+      border-color: rgba(0,212,170,0.3);
+      transform: translateY(-3px);
+    }
+    .paper-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .paper-type {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--accent);
+      font-weight: 500;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .paper-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      font-weight: 700;
+      line-height: 1.4;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .paper-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .meta-tag {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .meta-tag span { color: var(--text); font-weight: 500; }
+
+    /* Authors */
+    .authors-section { margin-bottom: 24px; }
+    .authors-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .authors-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .author-chip {
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.2);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #93c5fd;
+    }
+    .author-chip.main {
+      background: rgba(0,212,170,0.1);
+      border-color: rgba(0,212,170,0.3);
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Abstract */
+    .abstract-section { margin-bottom: 28px; }
+    .abstract-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .abstract-text {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+      border-left: 2px solid var(--accent);
+      padding-left: 16px;
+    }
+
+    /* Keywords */
+    .keywords-section { margin-bottom: 32px; }
+    .keywords-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .keywords-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .keyword {
+      background: rgba(0,212,170,0.06);
+      border: 1px solid rgba(0,212,170,0.15);
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #00b38a);
+      color: #0a0e1a;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,212,170,0.3);
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent2);
+      color: var(--accent2);
+      transform: translateY(-2px);
+    }
+
+    /* ===== STATS ROW ===== */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .stat-card:hover {
+      border-color: rgba(0,212,170,0.3);
+      transform: translateY(-3px);
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 60px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .paper-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="badge">Mechanical Engineering • Research Portfolio</div>
+      <h1 class="name">Ankit Kumar</h1>
+      <p class="role">B.Tech Student, Department of Mechanical Engineering</p>
+      <p class="institute">🏛️ Government Engineering College West Champaran, Bihar — 845450</p>
+
+      <div class="contact-row">
+        <a href="mailto:ankitkumar73250bth@gmail.com" class="contact-pill">
+          📧 ankitkumar73250bth@gmail.com
+        </a>
+        <a href="mailto:vvikashraj171@gmail.com" class="contact-pill">
+          📧 vvikashraj171@gmail.com
+        </a>
+      </div>
+    </header>
+
+    <!-- DIVIDER -->
+    <div class="divider"></div>
+
+    <!-- PAPER CARD -->
+    <div class="paper-card">
+      <div class="paper-type">📄 Conference Paper • 2026</div>
+
+      <h2 class="paper-title">
+        Design And Development of an Arduino Based Omnidirectional Zero-Turn Radius Vehicle with Wireless Control and Quantitative Performance Evaluation
+      </h2>
+
+      <div class="paper-meta">
+        <div class="meta-tag">🏛️ <span>3rd National Conference on Emerging Trends in Science & Technology, 2026</span></div>
+        <div class="meta-tag">📂 <span>Robotics & Embedded Systems</span></div>
+        <div class="meta-tag">🔬 <span>Mechanical Engineering</span></div>
+      </div>
+
+      <!-- Authors -->
+      <div class="authors-section">
+        <div class="authors-label">Authors</div>
+        <div class="authors-grid">
+          <span class="author-chip main">Ankit Kumar</span>
+          <span class="author-chip">Shishir Snigdh Roy</span>
+          <span class="author-chip">Nitish Kumar</span>
+          <span class="author-chip">Vikash Kumar</span>
+          <span class="author-chip">Md. Waquar Shahid</span>
+          <span class="author-chip">Subodh Kr. Yadav</span>
+        </div>
+      </div>
+
+      <!-- Abstract -->
+      <div class="abstract-section">
+        <div class="abstract-label">Abstract</div>
+        <p class="abstract-text">
+          Space constraints in urban and industrial environments demand compact, agile vehicles capable of maneuvring without wide turning arcs. This paper presents the design and theoretical analysis of a proposed 360-degree rotating vehicle with zero-turn radius (ZTR) capability, controlled wirelessly via an Arduino Uno and HC-05 Bluetooth module. The system integrates a BTS7960 high-current motor driver (43A) with four independently driven DC gear motors to achieve omnidirectional movement without positional displacement. Design calculations estimate consistent ZTR performance, command response time below 200 ms, and stable operation across load conditions up to 8 kg.
+        </p>
+      </div>
+
+      <!-- Keywords -->
+      <div class="keywords-section">
+        <div class="keywords-label">Keywords</div>
+        <div class="keywords-wrap">
+          <span class="keyword">Arduino Uno</span>
+          <span class="keyword">BTS7960 Motor Driver</span>
+          <span class="keyword">HC-05 Bluetooth</span>
+          <span class="keyword">Zero-Turn Radius</span>
+          <span class="keyword">Omnidirectional Vehicle</span>
+          <span class="keyword">DC Gear Motor</span>
+          <span class="keyword">PWM Control</span>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="btn-row">
+        <a href="paper.pdf" class="btn btn-primary" download>
+          ⬇️ Download Paper (PDF)
+        </a>
+        <a href="paper.pdf" class="btn btn-secondary" target="_blank">
+          👁️ View Online
+        </a>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-number">360°</div>
+        <div class="stat-label">Zero-Turn Radius Rotation</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">96.4%</div>
+        <div class="stat-label">Command Accuracy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">74.5%</div>
+        <div class="stat-label">Drift Reduction Achieved</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>© 2026 Ankit Kumar • GEC West Champaran, Bihar</p>
+      <p style="margin-top: 8px;">Built with ❤️ for academic research sharing</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
